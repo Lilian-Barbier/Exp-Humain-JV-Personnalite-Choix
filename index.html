@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="spinner.css">
+    
+
+    <!-- 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet"> -->
+
+</head>
+
+<body>
+
+    <h1 id="round">Manche X</h1>
+
+    <div id="game-container">
+
+        <div id="leaderboards">
+            <div id="leaderboard">
+                <h2>Votre classement au sein de la coopérative des : XXX</h2>
+                <table>
+                    <thead>
+                        <th>Rang</th>
+                        <th>Joueur</th>
+                        <th>Score</th>
+                    </thead>
+
+                    <tbody id="leaderboard-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="global-leaderboard">
+                <h2>Classement des coopératives</h2>
+                <table>
+                    <thead>
+                        <th>Rang</th>
+                        <th>Equipe</th>
+                        <th>Score</th>
+                    </thead>
+
+                    <tbody id="global-leaderboard-body">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="round-choice">
+            <h2 id="round-title">Choisissez votre action</h2>
+
+            <div id="choice-A">
+                <div class="btn-wrapper">
+                    <div class="btn duolingo-btn">
+                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="choice-B">
+                <div class="btn-wrapper">
+                    <div class="btn duolingo-btn">
+                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="choice-C">
+                <div class="btn-wrapper">
+                    <div class="btn duolingo-btn">
+                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="choice-D">
+                <div class="btn-wrapper">
+                    <div class="btn duolingo-btn">
+                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                    </div>
+                </div>
+            </div>
+
+            <button id="submit-choice" disabled>Valider la manche</button>
+            
+            <div id="spinner-background">
+                <div id="spinner"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="main.js"></script>
+    
+</body>
+
+</html>
