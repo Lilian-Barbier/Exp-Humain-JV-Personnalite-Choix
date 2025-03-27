@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="spinner.css">
-    
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/spinner.css">
+    <link rel="stylesheet" href="styles/collectibles.css">
+    <link rel="stylesheet" href="styles/notifications.css">
+    <link rel="stylesheet" href="styles/questions.css">
+    <link rel="stylesheet" href="styles/input.css">
 
     <!-- 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,88 +23,200 @@
 
 <body>
 
-    <h1 id="round">Manche X</h1>
+    <div id="information-container" class="container">
+        <div class="block">
+            <h1>Titre à définir si besoin</h1>
 
-    <div id="game-container">
+            <p>
+                Présentation de l'expérience : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a justo
+                tellus. Morbi volutpat condimentum volutpat. Vestibulum ornare augue id hendrerit molestie. Sed dui
+                magna,
+                finibus ut molestie quis, vulputate sed neque. Nullam maximus metus sit amet imperdiet interdum.
+                Praesent
+                tincidunt enim id leo condimentum condimentum. Mauris congue, lorem ac sagittis molestie, quam justo
+                condimentum nisi, in interdum dui nisl a diam. Phasellus tortor orci, auctor sed ornare eu, aliquam vel
+                leo.
+                Quisque at elit efficitur, commodo elit et, aliquet enim. Vivamus tincidunt mi eu metus mattis vehicula.
+                Quisque sollicitudin feugiat erat.
+                Nam interdum sem quam, vitae iaculis nulla faucibus in. Duis cursus arcu sagittis porta finibus. Etiam
+                porttitor pulvinar lobortis. Nullam laoreet sapien ac efficitur ultrices. In faucibus efficitur cursus.
+                Curabitur tempor maximus justo quis tempor. Vestibulum facilisis malesuada eros vitae elementum.
+                Curabitur
+                ante sapien, accumsan vehicula diam sed, iaculis congue mi. Nulla imperdiet fringilla est quis auctor.
+                Vivamus in quam aliquet, cursus mauris vitae, rutrum nisi.
+            </p>
 
-        <div id="leaderboards">
-            <div id="leaderboard">
-                <h2>Votre classement au sein de la coopérative des : XXX</h2>
-                <table>
-                    <thead>
-                        <th>Rang</th>
-                        <th>Joueur</th>
-                        <th>Score</th>
-                    </thead>
+            <button id="participate">Je participe à l'expérience <img src="images/icons/controller.png" /></button>
+        </div>
+    </div>
 
-                    <tbody id="leaderboard-body">
-                    </tbody>
-                </table>
+
+    <div id="start-question-container" class="container">
+        <div class="block">
+            <h1> Choissisez un pseudo et une coopérative de départ </h1>
+
+            <div>
+                <input type="text" id="pseudo" placeholder="Pseudo">
             </div>
 
-            <div id="global-leaderboard">
-                <h2>Classement des coopératives</h2>
-                <table>
-                    <thead>
-                        <th>Rang</th>
-                        <th>Equipe</th>
-                        <th>Score</th>
-                    </thead>
+            <div id="coop-radio"></div>
 
-                    <tbody id="global-leaderboard-body">
-                    </tbody>
-                </table>
-            </div>
+            <button id="start-game">Lancer les manches <img src="images/icons/controller.png" /></button>
 
         </div>
+    </div>
 
-        <div id="round-choice">
-            <h2 id="round-title">Choisissez votre action</h2>
+    <div id="game-container" class="container">
 
-            <div id="choice-A">
-                <div class="btn-wrapper">
-                    <div class="btn duolingo-btn">
-                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
-                    </div>
+        <h1 id="round">Manche X</h1>
+
+        <div id="game">
+
+            <div id="round-choice" class="block">
+                <h2 id="round-title">Choisissez votre action</h2>
+
+                <div id="choice-A" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
                 </div>
+
+                <div id="choice-B" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="choice-C" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="choice-D" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="collectibles">
+                    <h3> Vos collectibles </h3>
+
+                    <div id="collectible-container">
+                    </div>
+
+                    <button id="send">Donner un collectible en double</button>
+                    <button id="dont-send">Ne pas donner de collectible</button>
+                </div>
+
+                <button id="submit-choice" disabled>Valider la manche</button>
+
+                <div id="notification" class="hide">Vous avez reçu un nouveau collectible</div>
             </div>
 
-            <div id="choice-B">
-                <div class="btn-wrapper">
-                    <div class="btn duolingo-btn">
-                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
-                    </div>
-                </div>
-            </div>
+            <button id="finish-game" style="display: none;">Continuer</button>
 
-            <div id="choice-C">
-                <div class="btn-wrapper">
-                    <div class="btn duolingo-btn">
-                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
-                    </div>
-                </div>
-            </div>
+            <div id="leaderboards-background-hidden"></div>
+            <div id="leaderboards-hidden">
 
-            <div id="choice-D">
-                <div class="btn-wrapper">
-                    <div class="btn duolingo-btn">
-                        <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
-                    </div>
-                </div>
-            </div>
+                <h1 id="leaderboard-button">Classements <img src="images/icons/arrow.png" /></h1>
 
-            <button id="submit-choice" disabled>Valider la manche</button>
-            
-            <div id="spinner-background">
-                <div id="spinner"></div>
+                <div id="leaderboard" class="block leaderboard">
+                    <h2>Votre classement au sein de la coopérative :</h2>                
+                    <hr/>
+                    <table>
+                        <thead>
+                            <th>Rang</th>
+                            <th>Joueur</th>
+                            <th>Score</th>
+                        </thead>
+
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="global-leaderboard" class="block leaderboard">
+                    <h2>Classement des coopératives</h2>
+                    <hr/>
+                    <table>
+                        <thead>
+                            <th>Rang</th>
+                            <th>Equipe</th>
+                            <th>Score</th>
+                        </thead>
+
+                        <tbody id="global-leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
 
         </div>
     </div>
 
+    <div id="end-game-question-container" class="container">
+        <div class="block">
+            <h1> Quelques questions : </h1>
+            <div id="end-game-question">
+            </div>
+            <button id="end-game">Terminer le jeu</button>
+        </div>
+    </div>
 
-    <script src="main.js"></script>
-    
+    <div id="revelation-container" class="container">
+        <h1>Révélation de l'expérience</h1>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a justo
+            tellus. Morbi volutpat condimentum volutpat. Vestibulum ornare augue id hendrerit molestie. Sed dui
+            magna,
+            finibus ut molestie quis, vulputate sed neque. Nullam maximus metus sit amet imperdiet interdum.
+            Praesent
+            tincidunt enim id leo condimentum condimentum. Mauris congue, lorem ac sagittis molestie, quam justo
+            condimentum nisi, in interdum dui nisl a diam. Phasellus tortor orci, auctor sed ornare eu, aliquam vel
+            leo.
+            Quisque at elit efficitur, commodo elit et, aliquet enim. Vivamus tincidunt mi eu metus mattis vehicula.
+            Quisque sollicitudin feugiat erat.
+            Nam interdum sem quam, vitae iaculis nulla faucibus in. Duis cursus arcu sagittis porta finibus. Etiam
+            porttitor pulvinar lobortis. Nullam laoreet sapien ac efficitur ultrices. In faucibus efficitur cursus.
+            Curabitur tempor maximus justo quis tempor. Vestibulum facilisis malesuada eros vitae elementum.
+            Curabitur
+            ante sapien, accumsan vehicula diam sed, iaculis congue mi. Nulla imperdiet fringilla est quis auctor.
+            Vivamus in quam aliquet, cursus mauris vitae, rutrum nisi.
+        </p>
+
+        <button id="accept">Je suis d'accord pour envoyer mes réponses </button>
+    </div>
+
+    <div id="final-container" class="container">
+        <h1>Merci d'avoir participé !</h1>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a justo
+            tellus. Morbi volutpat condimentum volutpat. Vestibulum ornare augue id hendrerit molestie. Sed dui
+            magna,
+            finibus ut molestie quis, vulputate sed neque. Nullam maximus metus sit amet imperdiet interdum.
+            Praesent
+            tincidunt enim id leo condimentum condimentum. Mauris congue, lorem ac sagittis molestie, quam justo
+            condimentum nisi, in interdum dui nisl a diam. Phasellus tortor orci, auctor sed ornare eu, aliquam vel
+            leo.
+            Quisque at elit efficitur, commodo elit et, aliquet enim. Vivamus tincidunt mi eu metus mattis vehicula.
+            Quisque sollicitudin feugiat erat.
+            Nam interdum sem quam, vitae iaculis nulla faucibus in. Duis cursus arcu sagittis porta finibus. Etiam
+            porttitor pulvinar lobortis. Nullam laoreet sapien ac efficitur ultrices. In faucibus efficitur cursus.
+            Curabitur tempor maximus justo quis tempor. Vestibulum facilisis malesuada eros vitae elementum.
+            Curabitur
+            ante sapien, accumsan vehicula diam sed, iaculis congue mi. Nulla imperdiet fringilla est quis auctor.
+            Vivamus in quam aliquet, cursus mauris vitae, rutrum nisi.
+        </p>
+    </div>
+
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/notifications.js"></script>
+    <script src="scripts/leaderboard.js"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
 </body>
 
 </html>

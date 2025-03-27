@@ -13,10 +13,7 @@ body {
     animation: pulse 2s infinite;
 }
 
-
-#leaderboard,
-#global-leaderboard,
-#round-choice {
+.block {
 
     background: white;
     margin-bottom: 20px;
@@ -40,10 +37,53 @@ body {
     }
 }
 
-#game-container {
+
+input[type="text"] {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: calc(100% - 22px); /* Adjust width to account for padding and border */
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+input[type="radio"]:checked {
+    background: #7fa1c3;
+    border-color: #7fa1c3;
+    position: relative;
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#game {
     display: flex;
     justify-content: center;
     gap: 30px;
+}
+
+#information-container{
+    text-align: justify;
 }
 
 #leaderboards {
@@ -53,10 +93,6 @@ body {
 #round-choice {
     flex: 2;
 }
-
-
-
-
 
 
 .btn-wrapper {
@@ -136,7 +172,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-#submit-choice {
+button {
     font-family: "DIN Next Rounded LT Pro Medium";
     display: flex;
     align-items: center;
@@ -161,7 +197,7 @@ body {
     user-select: none;
 }
 
-#submit-choice:disabled {
+button:disabled {
     color: #afafaf;
     background-color: #f0f0f0;
     cursor: not-allowed;

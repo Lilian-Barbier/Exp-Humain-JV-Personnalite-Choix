@@ -1,0 +1,43 @@
+
+#notification {
+    position: fixed;
+    top: 20px;
+
+    left: 10%;
+    right: 10%;
+
+    text-align: center;
+
+    background-color: #D9CDB3;
+    color: #6a5831;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 1000;
+    font-weight: 500;
+
+    img {
+        width: 1em;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+}
+
+#notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#notification.hide {
+    transform: translateY(-150%);
+    opacity: 0;
+}
+
+/* Ajout d'une icône */
+#notification::before {
+    content: "🎁";
+    margin-right: 8px;
+}
