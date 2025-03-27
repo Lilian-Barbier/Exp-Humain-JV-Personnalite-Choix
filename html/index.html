@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/spinner.css">
+    <link rel="stylesheet" href="/styles/collectibles.css">
+    <link rel="stylesheet" href="/styles/notifications.css">
+    <link rel="stylesheet" href="/styles/questions.css">
+    <link rel="stylesheet" href="/styles/input.css">
+
+    <!-- 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet"> -->
+
+</head>
+
+<body>
+
+    <div id="information-container" class="container">
+        <div class="block">
+            <h1>Titre à définir si besoin</h1>
+
+            <p>
+                Présentation de l'expérience : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a justo
+                tellus. Morbi volutpat condimentum volutpat. Vestibulum ornare augue id hendrerit molestie. Sed dui
+                magna,
+                finibus ut molestie quis, vulputate sed neque. Nullam maximus metus sit amet imperdiet interdum.
+                Praesent
+                tincidunt enim id leo condimentum condimentum. Mauris congue, lorem ac sagittis molestie, quam justo
+                condimentum nisi, in interdum dui nisl a diam. Phasellus tortor orci, auctor sed ornare eu, aliquam vel
+                leo.
+                Quisque at elit efficitur, commodo elit et, aliquet enim. Vivamus tincidunt mi eu metus mattis vehicula.
+                Quisque sollicitudin feugiat erat.
+                Nam interdum sem quam, vitae iaculis nulla faucibus in. Duis cursus arcu sagittis porta finibus. Etiam
+                porttitor pulvinar lobortis. Nullam laoreet sapien ac efficitur ultrices. In faucibus efficitur cursus.
+                Curabitur tempor maximus justo quis tempor. Vestibulum facilisis malesuada eros vitae elementum.
+                Curabitur
+                ante sapien, accumsan vehicula diam sed, iaculis congue mi. Nulla imperdiet fringilla est quis auctor.
+                Vivamus in quam aliquet, cursus mauris vitae, rutrum nisi.
+            </p>
+
+            <button id="participate">Je participe à l'expérience <img src="images/icons/controller.png" /></button>
+        </div>
+    </div>
+
+
+    <div id="start-question-container" class="container">
+        <div class="block">
+            <h1> Choissisez un pseudo et une coopérative de départ </h1>
+
+            <div>
+                <input type="text" id="pseudo" placeholder="Pseudo">
+            </div>
+
+            <div id="coop-radio"></div>
+
+            <button id="start-game">Lancer les manches <img src="images/icons/controller.png" /></button>
+
+        </div>
+    </div>
+
+    <div id="game-container" class="container">
+
+        <h1 id="round">Manche X</h1>
+
+        <div id="game">
+
+            <div id="round-choice">
+                <h2 id="round-title">Choisissez votre action</h2>
+
+                <div id="choice-A" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="choice-B" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="choice-C" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="choice-D" class="btn-wrapper">
+                    <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
+                </div>
+
+                <div id="collectibles">
+                    <h3> Vos collectibles </h3>
+
+                    <div id="collectible-container">
+                    </div>
+
+                    <button id="send">Donner un collectible en double</button>
+                    <button id="dont-send">Ne pas donner de collectible</button>
+                </div>
+
+                <button id="submit-choice" disabled>Valider la manche</button>
+
+                <div id="notification" class="hide">Vous avez reçu un nouveau collectible</div>
+            </div>
+
+            <button id="finish-game" style="display: none;">Continuer</button>
+
+            <div id="leaderboards-background-hidden"></div>
+            <div id="leaderboards-hidden">
+
+                <h1 id="leaderboard-button">Classements <img src="images/icons/arrow.png" /></h1>
+
+                <div id="leaderboard" class="leaderboard">
+                    <h2>Votre classement au sein de la coopérative :</h2>
+                    <hr />
+                    <table>
+                        <thead>
+                            <th>Rang</th>
+                            <th>Joueur</th>
+                            <th>Score</th>
+                        </thead>
+
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="global-leaderboard" class="leaderboard">
+                    <h2>Classement des coopératives</h2>
+                    <hr />
+                    <table>
+                        <thead>
+                            <th>Rang</th>
+                            <th>Equipe</th>
+                            <th>Score</th>
+                        </thead>
+
+                        <tbody id="global-leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="end-game-question-container" class="container">
+        <div class="block">
+            <h1> Quelques questions : </h1>
+            <div id="end-game-question">
+            </div>
+            <button id="end-game">Terminer le jeu</button>
+        </div>
+    </div>
+
+    <div id="revelation-container" class="container">
+        <div class="block">
+
+            <h1>Révélation de l'expérience</h1>
+
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a justo
+                tellus. Morbi volutpat condimentum volutpat. Vestibulum ornare augue id hendrerit molestie. Sed dui
+                magna,
+                finibus ut molestie quis, vulputate sed neque. Nullam maximus metus sit amet imperdiet interdum.
+                Praesent
+                tincidunt enim id leo condimentum condimentum. Mauris congue, lorem ac sagittis molestie, quam justo
+                condimentum nisi, in interdum dui nisl a diam. Phasellus tortor orci, auctor sed ornare eu, aliquam vel
+                leo.
+                Quisque at elit efficitur, commodo elit et, aliquet enim. Vivamus tincidunt mi eu metus mattis vehicula.
+                Quisque sollicitudin feugiat erat.
+                Nam interdum sem quam, vitae iaculis nulla faucibus in. Duis cursus arcu sagittis porta finibus. Etiam
+                porttitor pulvinar lobortis. Nullam laoreet sapien ac efficitur ultrices. In faucibus efficitur cursus.
+                Curabitur tempor maximus justo quis tempor. Vestibulum facilisis malesuada eros vitae elementum.
+                Curabitur
+                ante sapien, accumsan vehicula diam sed, iaculis congue mi. Nulla imperdiet fringilla est quis auctor.
+                Vivamus in quam aliquet, cursus mauris vitae, rutrum nisi.
+            </p>
+
+            <button id="accept">Je suis d'accord pour envoyer mes réponses </button>
+        </div>
+    </div>
+
+    <div id="final-container" class="container">
+        <div class="block">
+            <h1>Merci d'avoir participé !</h1>
+
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a justo
+                tellus. Morbi volutpat condimentum volutpat. Vestibulum ornare augue id hendrerit molestie. Sed dui
+                magna,
+                finibus ut molestie quis, vulputate sed neque. Nullam maximus metus sit amet imperdiet interdum.
+                Praesent
+                tincidunt enim id leo condimentum condimentum. Mauris congue, lorem ac sagittis molestie, quam justo
+                condimentum nisi, in interdum dui nisl a diam. Phasellus tortor orci, auctor sed ornare eu, aliquam vel
+                leo.
+                Quisque at elit efficitur, commodo elit et, aliquet enim. Vivamus tincidunt mi eu metus mattis vehicula.
+                Quisque sollicitudin feugiat erat.
+                Nam interdum sem quam, vitae iaculis nulla faucibus in. Duis cursus arcu sagittis porta finibus. Etiam
+                porttitor pulvinar lobortis. Nullam laoreet sapien ac efficitur ultrices. In faucibus efficitur cursus.
+                Curabitur tempor maximus justo quis tempor. Vestibulum facilisis malesuada eros vitae elementum.
+                Curabitur
+                ante sapien, accumsan vehicula diam sed, iaculis congue mi. Nulla imperdiet fringilla est quis auctor.
+                Vivamus in quam aliquet, cursus mauris vitae, rutrum nisi.
+            </p>
+        </div>
+    </div>
+
+
+    <script src="/javascripts/data.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/notifications.js"></script>
+    <script src="/javascripts/leaderboard.js"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+</body>
+
+</html>

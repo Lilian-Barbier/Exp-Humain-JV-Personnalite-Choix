@@ -154,14 +154,40 @@ function ShowEndGameQuestion(){
 }
 
 function ShowRevelation(){
-    const userResponses = collectUserResponses();
-    console.log("Réponses de l'utilisateur:", userResponses);
-    
     endGameQuestionContainer.style.display = 'none';
     revelationContainer.style.display = 'flex';
 }
 
 function ShowFinal(){
+
+    //send data to server
+    const userResponses = collectUserResponses();
+    console.log("Réponses de l'utilisateur:", userResponses);
+    console.log(choices);
+
+    fetch('/response', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userResponses, choices })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data successfully sent to the server:', data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+    
+    //on enregistre dans le local storage qu'il à finis le jeu
+    localStorage.setItem('gameFinished', true);
+
     revelationContainer.style.display = 'none';
     finalContainer.style.display = 'flex';
 }
@@ -312,6 +338,7 @@ function UpdateChoice() {
     if (roundIndex > roundsInfos.length) {
 
         document.getElementById('round-choice').style.display = 'none';
+        document.getElementById('round').style.display = 'none';
         let finish = document.getElementById('finish-game');
         finish.style.display = 'block';
         finish.addEventListener('click', () => {

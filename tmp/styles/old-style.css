@@ -1,0 +1,207 @@
+body {
+    font-family: "Trebuchet MS";
+    background: antiquewhite;
+}
+
+#round {
+    text-align: center;
+    background: #7fa1c3;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+.block {
+
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    & table {
+        width: 75%;
+
+        & #current-player, & #current-coop{
+            background: #aae6ab;
+            color: black;
+        }
+
+    }
+}
+
+
+input[type="text"] {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: calc(100% - 22px); /* Adjust width to account for padding and border */
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+input[type="radio"]:checked {
+    background: #7fa1c3;
+    border-color: #7fa1c3;
+    position: relative;
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#game {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+#information-container{
+    text-align: justify;
+}
+
+#leaderboards {
+    flex: 1;
+}
+
+#round-choice {
+    flex: 2;
+}
+
+
+.btn-wrapper {
+    height: 58px;
+    width: 600.8px;
+    margin-bottom: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper-last {
+    margin-top: 12px;
+}
+
+.filler {
+    margin-top: 42px;
+    margin-bottom: 42px;
+    font-size: 28px;
+    color: #4b4b4b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.filler .desc {
+    font-size: 20px;
+    color: #737373;
+}
+
+.duolingo-btn {
+    font-family: "DIN Next Rounded LT Pro Medium";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 600.8px;
+    height: 58px;
+    font-size: 20px;
+    color: #4b4b4b;
+    border-radius: 16px;
+    border: 2px solid #e5e5e5;
+    border-bottom: 6px solid #e5e5e5;
+    margin-top: 12px;
+    padding: 12px 16px;
+    line-height: 1.4;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.duolingo-btn:active {
+    border-bottom: 2px solid #e5e5e5;
+    transform: translateY(4px);
+}
+
+.btn-choice {
+    border: 2px solid #e5e5e5;
+    color: #afafaf;
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    margin-left: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-text {
+    width: 100%;
+    text-align: center;
+    font-size: 19px;
+    color: #4b4b4b;
+    letter-spacing: 0.5px;
+}
+
+button {
+    font-family: "DIN Next Rounded LT Pro Medium";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+    color: #4b4b4b;
+    border-radius: 8px;
+    border: 2px solid #e5e5e5;
+    border-bottom: 4px solid #e5e5e5;
+    margin-top: 12px;
+    padding: 8px 12px;
+    line-height: 1.4;
+    background-color: #ffffff;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button:disabled {
+    color: #afafaf;
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+

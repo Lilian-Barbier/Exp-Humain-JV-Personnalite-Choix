@@ -1,0 +1,74 @@
+/* Styles pour les questions et boutons radio alignés */
+.question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    color: black;
+
+    input {
+        margin: 0 !important;
+    }
+}
+
+.question p {
+    margin: 0;
+    text-align: left;
+    font-weight: 500;
+    padding-right: 20px;
+}
+
+.question div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 50%;
+}
+
+.question label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Maintenir l'alignement des boutons radio avec le texte */
+.question input[type="radio"] {
+    margin: 0;
+    position: relative;
+    top: 0;
+}
+
+/* Espacement supplémentaire pour les écrans plus petits */
+@media (max-width: 768px) {
+    .question {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .question p {
+        margin-bottom: 10px;
+        padding-right: 0;
+    }
+    
+    .question div {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Styles pour le conteneur des questions */
+#end-game-question-container {
+    width: 100%;
+    
+    > div {
+        overflow: auto;
+        margin: 15px 0;
+    }
+}

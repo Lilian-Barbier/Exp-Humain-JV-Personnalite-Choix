@@ -66,7 +66,8 @@ collectibles = [
 
 questions = [
     {id: 1, question: "Question 1 ?", type: "text"},
-    {id: 2, question: "Question 1 ?", type: "text"},
+    {id: 2, question: "Question 2 ?", type: "value"},
+    {id: 3, question: "Question 3 ?", type: "value"},
 ]
 
 // Pour info les codes : 
