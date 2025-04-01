@@ -2,19 +2,19 @@
 
 let leaderboards = {
     leaderboard: [
-        { name: 'J1', score: 23000 },
-        { name: 'J2', score: 21000 },
-        { name: 'J3', score: 19000 },
-        { name: 'J4', score: 17500 },
-        { name: 'J5', score: 15900 },
-        { name: 'J6', score: 14000 },
-        { name: 'J7', score: 12500 },
-        { name: 'J8', score: 11500 },
-        { name: 'J9', score: 10750 },
+        { name: 'Maxou75', score: 23000 },
+        { name: 'CamCam92', score: 21000 },
+        { name: 'LiliBzh', score: 19000 },
+        { name: 'NinaFromParis', score: 17500 },
+        { name: 'Momo69', score: 15900 },
+        { name: 'AlexRugbyman', score: 14000 },
+        { name: 'SosoLaBelle', score: 12500 },
+        { name: 'JB_Gaming', score: 11500 },
+        { name: 'FloMontagne', score: 10750 },
         { name: 'J10', score: 10000, currentPlayer: true },
-        { name: 'J11', score: 9500 },
-        { name: 'J12', score: 9200 },
-        { name: 'J13', score: 8900 }
+        { name: 'Zaza_Croissant', score: 9500 },
+        { name: 'ThéoDuSud', score: 9200 },
+        { name: 'RomainChill', score: 8900 }
     ],
     globalLeaderboard: [
         {
@@ -43,11 +43,11 @@ let leaderboards = {
 
 // il faut avoir le même nombre de coopérative que dans le classement globalLeaderboard
 teamName = [
-    "Coopérative 1",
-    "Coopérative 2",
-    "Coopérative 3",
-    "Coopérative 4",
-    "Coopérative 5"
+    "Agriculture",
+    "Restauration",
+    "Artisanat",
+    "Transport",
+    "Commerce"
 ]
 
 //info sur les collectibles 
@@ -71,35 +71,67 @@ questions = [
 ]
 
 // Pour info les codes : 
-// A : Choix individuel neutre
+// A : Choix asocial
 // B : Choix pro-social léger
 // C : Choix pro-social lourd
-// D : Choix individuel anti-social
+// D : Choix anti-social
 let roundsInfos = [
     {
-        round: 1,
-        name: 'Appel au don annuel de la coopérative',
-        A: { text: 'Vous recevez 550€', personalScore: 550, teamScore: 0 },
-        B: { text: 'Votre coopérative reçoit 550€', personalScore: 0, teamScore: 550 },
+        round: 0,
+        name: 'Ceci est une manche test pour vous familiariser avec le jeu. Ci-dessous, vous pouvez voir les choix possibles et leurs conséquences. Imaginons, ici, que vous recevez 100€, vous pouvez vous garder cette argent ou le verser à la coopérative (ce choix n\'aura pas de conséquences sur les scores). Ensuite, plus bas, vous avez des outils à collecter (sans conséquences sur les scores) dont vous pouvez distribuer vos doubles ou non aux autres joueurs. Enfin, vous pouvez avoir accès au classement tout en bas de l\'écran.',
+        A: { text: 'Vous recevez 100€', personalScore: 0, teamScore: 0 },
+        B: { text: 'Votre coopérative reçoit 100€', personalScore: 0, teamScore: 0 },
     },
-    // {
-    //     round: 2,
-    //     name: 'Vous pouvez vous rémunérer normalement, ou demander une subvention supplémentaire à votre coopérative',
-    //     A: { text: 'Vous recevez 300€', personalScore: 300, teamScore: 0 },
-    //     D: { text: 'Vous recevez 300€ et votre coopérative vous reverse 300€ supplémentaire de ses fonds', personalScore: 300, teamScore: -300 },
-    // },    
-    // {
-    //     round: 3,
-    //     gainCollectible: 6,
-    //     name: 'L\'état propose une aide financiere, mais en contrepartie la coopérative ou vous devez payer une charge supplémentaire de 700€',
-    //     C: { text: 'Vous donnez 700€ mais la coopérative en gagne 1400€', personalScore: -700, teamScore: 1400 },
-    //     D: { text: 'Vous recevez 1400€, mais la coopérative en perdras 700€', personalScore: 1400, teamScore: -700 },
-    // }, 
-    // {
-    //     round: 4,
-    //     name: 'L\'état propose une aide financiere, mais en contrepartie la coopérative ou vous devez payer une charge supplémentaire de 700€',
-    //     A: { text: 'Vous recevez 450€', personalScore: 450, teamScore: 0 },
-    //     C: { text: 'Vous donnez 450€ mais la coopérative en gagne 900€', personalScore: -450, teamScore: 900 },
-    //     D: { text: 'Vous recevez 900€, mais la coopérative doit en donner 450€', personalScore: 900, teamScore: -450 },
-    // },
+    {
+        round: 1,
+        name: 'C\'est maintenant que le jeu commance, votre coopérative est actuellement en 3ème position. Elle procède à un appel au don : Vous pouvez choisir de partager vos derniers revenus, ou de les garder pour vous.',
+         A: { text: 'Vous recevez 550€', personalScore: 550, teamScore: 0 },
+         B: { text: 'Votre coopérative reçoit 550€', personalScore: 0, teamScore: 550 },
+    },    
+    {
+        round: 2,
+        name: 'Une affaire se présente mais vous n\'avez pas les ressources requises : vous pouvez soit les acheter vous même, soit utiliser celles de la coopérative.',
+        A: { text: 'Vous recevez 300€', personalScore: 300, teamScore: 0 },
+        D: { text: 'Vous recevez 600€, mais votre coopérative perd 300€', personalScore: 600, teamScore: -300 },
+    }, 
+    {
+        round: 3,
+        gainCollectible: 6,
+        name: 'Un imprévu financier oblige à trancher : vous pouvez assumer les pertes pour préserver la coopérative, ou demander à la coopérative de les assumer pour vous préserver.',
+        C: { text: 'Vous perdez 700€, mais votre coopérative reçoit 1400€', personalScore: 300, teamScore: 0 },
+        D: { text: 'Vous recevez 1400€, mais votre coopérative perd 700€', personalScore: 600, teamScore: -300 },
+    }, 
+    {
+        round: 4,
+        name: 'Le comptable de la coopérative vous fait confiance et vous a dit de vous servir directement dans le coffre de la coopérative pour votre remboursement de frais. Vous pouvez accepter, ou le laisser comme don à la coopérative, ou encore prendre un peu plus, personne ne le saura.',
+        A: { text: 'Vous recevez 450€', personalScore: 450, teamScore: 0 },
+        C: { text: 'Vous perdez 450€, mais votre coopérative reçoit 900€', personalScore: -450, teamScore: 900 },
+        D: { text: 'Vous recevez 900€, mais votre coopérative perd -450€', personalScore: 900, teamScore: -450 },
+     },
+     {
+        round: 5,
+        name: 'Un investissement vous est lucratif. Vous pouvez encaisser les gains tel quel, ou les doubler en demandant une participation à la coopérative.',
+        A: { text: 'Vous recevez 700€', personalScore: 700, teamScore: 0 },
+        D: { text: 'Vous recevez 1400€, mais votre coopérative perd -700€', personalScore: 1400, teamScore: -700 },
+    }, 
+    {
+        round: 6,
+        name: 'Vous touchez une commission sur une vente et avez le choix de la garder, ou de l\'investir dans un projet de la coopérative en ajoutant un complément financier personnel.',
+        A: { text: 'Vous recevez 300€', personalScore: 300, teamScore: 0 },
+        C: { text: 'Vous perdez 300€, mais votre coopérative reçoit 600€', personalScore: -300, teamScore: 600 },
+    }, 
+    {
+        round: 7,
+        gainCollectible: 7,
+        name: 'Une subvention a été versée : vous pouvez la laisser à la coopérative, ou en détourner une partie pour votre propre compte.',
+        B: { text: 'Votre coopérative reçoit 450€', personalScore: 0, teamScore: 450 },
+        D: { text: 'Vous recevez 900€, mais votre coopérative perd 450€', personalScore: 900, teamScore: -450 },
+    }, 
+    {
+       round: 16,
+       name: 'Un imprévu financier oblige à trancher : vous pouvez assumer les pertes pour préserver la coopérative, ou demander à la coopérative de les assumer pour vous préserver.',
+       A: { text: 'Vous recevez 700€', personalScore: 700, teamScore: 0 },
+       B: { text: 'Votre coopérative reçoit 700€', personalScore: 0, teamScore: 700 },
+       D: { text: 'Vous recevez 1400€, mais votre coopérative perd 700€', personalScore: 1400, teamScore: -700 },
+    },
 ]

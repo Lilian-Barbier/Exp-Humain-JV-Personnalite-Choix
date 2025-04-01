@@ -195,3 +195,7 @@ tr.show {
     opacity: 1;
 }
 
+#information-container .block{
+    overflow: auto;
+    margin-bottom: 20px;
+}
