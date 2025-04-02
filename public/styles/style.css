@@ -66,7 +66,7 @@ button:disabled {
 
 #leaderboards, #leaderboards-hidden {
     position: absolute;
-    top: 20%;
+    top: 15%;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     left: 50%;
@@ -95,11 +95,21 @@ button:disabled {
 }
 
 #game-container{
-    height: 80%;
+    height: 90%;
+    overflow: auto;
 }
 
 #round-title {
     text-align: center;
+    font-size: 1em;
+    text-align: initial;
+}
+@media (min-width: 700px) {
+    #round-title {
+        width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
 
 #round {
@@ -150,6 +160,7 @@ button:disabled {
 
     & h2 {
         margin-bottom: 0;
+        font-size: 1em;
     }
 
     & hr {
@@ -180,8 +191,8 @@ button:disabled {
     backdrop-filter: blur(1px);
 } 
 
-#leaderboard {
-    height: 45%;
+#leaderboards-scroll {
+    overflow: auto;
 }
 
 
@@ -195,7 +206,32 @@ tr.show {
     opacity: 1;
 }
 
+#information-container {
+    overflow: hidden;
+}
+
 #information-container .block{
+
     overflow: auto;
     margin-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    h1{    
+        font-size: 1.6rem;
+    }
+    h2{
+        font-size: 1.2rem;
+    }
+    h3{
+        font-size: 1em;
+    }
+
+    & p:first-of-type  {
+        text-align: center;
+    }
+}
+
+.nowrap {
+    white-space: nowrap;
 }

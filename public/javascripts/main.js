@@ -79,6 +79,11 @@ window.onload = () => {
     revelationContainer.style.display = 'none';
     finalContainer.style.display = 'none';
 
+    if(localStorage.getItem('gameFinished') === 'true'){
+        informationContainer.style.display = 'none';
+        finalContainer.style.display = 'flex';
+    }
+
     round.innerHTML = `Manche ${roundIndex}`;
 
     pseudoInput = document.getElementById('pseudo');
@@ -130,6 +135,7 @@ window.onload = () => {
         dontSendCollectible = false
     });
 
+    
     document.getElementById('dont-send').addEventListener('click', () => {
         UnselectButton('send');
         SelectButton('dont-send');
@@ -170,7 +176,7 @@ function ShowFinal(){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userResponses, choices })
+        body: JSON.stringify({ userResponses, choices, cooperativeName })
     })
     .then(response => {
         if (!response.ok) {
@@ -283,7 +289,7 @@ function FinishRound() {
 
     if(sendCollectible)
     {
-        let collectible = collectibles.filter(collectible => collectible.count > 0);
+        let collectible = collectibles.filter(collectible => collectible.count > 1);
         if(collectible !== undefined)
         {
             let randomIndex = Math.floor(Math.random() * collectible.length);
@@ -299,6 +305,9 @@ function FinishRound() {
         sendCollectible: sendCollectible,
         dontSendCollectible : dontSendCollectible
     });
+
+    sendCollectible = false;
+    dontSendCollectible = false;
 
     OpenCloseLeaderboard()
     UpdateLeaderboard();
@@ -476,7 +485,16 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else{
+        else if(question.type === "info"){
+            const questionDiv = document.createElement('div');
+
+            questionDiv.innerHTML = `
+                <p>${question.question}</p>
+            `;
+
+            endGameQuestion.appendChild(questionDiv);
+        }
+        else if(question.type === "value1"){
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -489,6 +507,48 @@ function InitQuestions(){
                     <label><input type="radio" name="${questionId}" value="3"> 3</label>
                     <label><input type="radio" name="${questionId}" value="4"> 4</label>
                     <label><input type="radio" name="${questionId}" value="5"> 5</label>
+                </div>
+            `;
+
+            endGameQuestion.appendChild(questionDiv);
+        }
+        else if(question.type === "value2"){
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.dataset.id = questionId;
+
+            questionDiv.innerHTML = `
+                <p>${question.question}</p>
+                <div>
+                    <label><input type="radio" name="${questionId}" value="1"> 1</label>
+                    <label><input type="radio" name="${questionId}" value="2"> 2</label>
+                    <label><input type="radio" name="${questionId}" value="3"> 3</label>
+                    <label><input type="radio" name="${questionId}" value="4"> 4</label>
+                    <label><input type="radio" name="${questionId}" value="5"> 5</label>
+                    <label><input type="radio" name="${questionId}" value="6"> 6</label>
+                    <label><input type="radio" name="${questionId}" value="7"> 7</label>
+                </div>
+            `;
+
+            endGameQuestion.appendChild(questionDiv);
+        }
+        else if(question.type === "value3"){
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.dataset.id = questionId;
+
+            questionDiv.innerHTML = `
+                <p>${question.question}</p>
+                <div>
+                    <label><input type="radio" name="${questionId}" value="1"> 1</label>
+                    <label><input type="radio" name="${questionId}" value="2"> 2</label>
+                    <label><input type="radio" name="${questionId}" value="3"> 3</label>
+                    <label><input type="radio" name="${questionId}" value="4"> 4</label>
+                    <label><input type="radio" name="${questionId}" value="5"> 5</label>
+                    <label><input type="radio" name="${questionId}" value="6"> 6</label>
+                    <label><input type="radio" name="${questionId}" value="7"> 7</label>
+                    <label><input type="radio" name="${questionId}" value="8"> 8</label>
+                    <label><input type="radio" name="${questionId}" value="9"> 9</label>
                 </div>
             `;
 
@@ -525,12 +585,12 @@ function areAllQuestionsAnswered() {
     questions.forEach((question) => {
         const questionId = `question-${question.id}`;
         
-        if (question.type === "text") {
-            const textInput = document.querySelector(`input[name="${questionId}"]`);
-            if (!textInput || textInput.value.trim() === "") {
-                allAnswered = false;
-            }
-        } else {
+        // if (question.type === "text") {
+        //     const textInput = document.querySelector(`input[name="${questionId}"]`);
+        //     if (!textInput || textInput.value.trim() === "") {
+        //         allAnswered = false;
+        //     }
+        if (question.type === "value1" ||question.type === "value2" || question.type === "value3") {
             const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
             if (!selectedRadio) {
                 allAnswered = false;
@@ -548,19 +608,24 @@ function collectUserResponses() {
         const questionId = `question-${question.id}`;
         let userResponse;
         
-        if (question.type === "text") {
-            const textInput = document.querySelector(`input[name="${questionId}"]`);
-            userResponse = textInput ? textInput.value : "";
-        } else {
-            const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
-            userResponse = selectedRadio ? parseInt(selectedRadio.value) : null;
+        if(question.type != "info"){
+            
+            if (question.type === "text") {
+                const textInput = document.querySelector(`input[name="${questionId}"]`);
+                userResponse = textInput ? textInput.value : "";
+            } else {
+                const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
+                userResponse = selectedRadio ? parseInt(selectedRadio.value) : null;
+            }
+            
+            responses.push({
+                question: question.question,
+                type: question.type,
+                response: userResponse,
+                id: question.id
+            });
         }
-        
-        responses.push({
-            question: question.question,
-            type: question.type,
-            response: userResponse
-        });
+
     });
     
     return responses;
