@@ -79,10 +79,10 @@ window.onload = () => {
     revelationContainer.style.display = 'none';
     finalContainer.style.display = 'none';
 
-    if(localStorage.getItem('gameFinished') === 'true'){
-        informationContainer.style.display = 'none';
-        finalContainer.style.display = 'flex';
-    }
+    // if(localStorage.getItem('gameFinished') === 'true'){
+    //     informationContainer.style.display = 'none';
+    //     finalContainer.style.display = 'flex';
+    // }
 
     round.innerHTML = `Manche ${roundIndex}`;
 
@@ -554,6 +554,51 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
+        else if(question.type === "genre"){
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.dataset.id = questionId;
+
+            questionDiv.innerHTML = `
+                <p>${question.question}</p>
+                <div>
+                    <label><input type="radio" name="${questionId}" value="1"> Masculin</label>
+                    <label><input type="radio" name="${questionId}" value="2"> Féminin</label>
+                    <label><input type="radio" name="${questionId}" value="3"> Autre</label>
+                </div>
+            `;
+
+            endGameQuestion.appendChild(questionDiv);
+        }
+        else if(question.type === "age"){
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.dataset.id = questionId;
+
+            questionDiv.innerHTML = `
+                <p>${question.question}</p>
+                <div>
+                    <input type="number" name="${questionId}" placeholder="Votre âge" min="0" max="120" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                </div>
+            `;
+
+            endGameQuestion.appendChild(questionDiv);
+        }
+        else if(question.type === "yn"){
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.dataset.id = questionId;
+
+            questionDiv.innerHTML = `
+                <p>${question.question}</p>
+                <div>
+                    <label><input type="radio" name="${questionId}" value="1"> Oui</label>
+                    <label><input type="radio" name="${questionId}" value="2"> Non</label>
+                </div>
+            `;
+
+            endGameQuestion.appendChild(questionDiv);
+        }
     
     });
 
@@ -566,6 +611,12 @@ function InitQuestions(){
     // Pour les questions textuelles
     const textInputs = document.querySelectorAll('#end-game-question input[type="text"]');
     textInputs.forEach(input => {
+        input.addEventListener('input', updateEndGameButtonState);
+    });
+
+    // Pour les questions d'âge
+    const ageInputs = document.querySelectorAll('#end-game-question input[type="number"]');
+    ageInputs.forEach(input => {
         input.addEventListener('input', updateEndGameButtonState);
     });
 
@@ -585,12 +636,13 @@ function areAllQuestionsAnswered() {
     questions.forEach((question) => {
         const questionId = `question-${question.id}`;
         
-        // if (question.type === "text") {
-        //     const textInput = document.querySelector(`input[name="${questionId}"]`);
-        //     if (!textInput || textInput.value.trim() === "") {
-        //         allAnswered = false;
-        //     }
-        if (question.type === "value1" ||question.type === "value2" || question.type === "value3") {
+        if (question.type === "age") {
+            const textInput = document.querySelector(`input[name="${questionId}"]`);
+            if (!textInput || textInput.value.trim() === "") {
+                allAnswered = false;
+            }
+        }
+        else if (question.type === "value1" ||question.type === "value2" || question.type === "value3" || question.type === "genre" || question.type === "yn") {
             const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
             if (!selectedRadio) {
                 allAnswered = false;

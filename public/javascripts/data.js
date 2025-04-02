@@ -118,7 +118,7 @@ questions = [
     {id: 42, question: "J’aime faire connaissance avec des gens importants.", type: "value1"},
     {id: 43, question: "Je suis embarrassé(e) lorsqu’on me complimente.", type: "value1"}, // Item inversé (5=1 ; 4=2 ...)
     {id: 44, question: "J’ai été comparé(e) à des personnes célèbres.", type: "value1"},
-    {id: 45, question: "Je suis un individu moyen.", type: "value"}, // Item inversé (5=1 ; 4=2 ...)
+    {id: 45, question: "Je suis un individu moyen.", type: "value1"}, // Item inversé (5=1 ; 4=2 ...)
     {id: 46, question: "J’exige obtenir le respect que je mérite.", type: "value1"},
 
     { question: "Pour finir cette expérience, voici quelques questions socio-démographique :", type: "info" },
