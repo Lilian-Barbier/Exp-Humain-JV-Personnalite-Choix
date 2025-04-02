@@ -662,10 +662,11 @@ function collectUserResponses() {
         
         if(question.type != "info"){
             
-            if (question.type === "text") {
+            if (question.type === "text" || question.type === "age") {
                 const textInput = document.querySelector(`input[name="${questionId}"]`);
                 userResponse = textInput ? textInput.value : "";
-            } else {
+            } 
+            else {
                 const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
                 userResponse = selectedRadio ? parseInt(selectedRadio.value) : null;
             }
