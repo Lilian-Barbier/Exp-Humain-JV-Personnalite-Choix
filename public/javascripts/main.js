@@ -79,10 +79,10 @@ window.onload = () => {
     revelationContainer.style.display = 'none';
     finalContainer.style.display = 'none';
 
-    // if(localStorage.getItem('gameFinished') === 'true'){
-    //     informationContainer.style.display = 'none';
-    //     finalContainer.style.display = 'flex';
-    // }
+    if(localStorage.getItem('gameFinished') === 'true'){
+        informationContainer.style.display = 'none';
+        finalContainer.style.display = 'flex';
+    }
 
     round.innerHTML = `Manche ${roundIndex}`;
 
