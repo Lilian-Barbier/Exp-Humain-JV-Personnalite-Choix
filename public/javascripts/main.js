@@ -84,7 +84,7 @@ window.onload = () => {
         finalContainer.style.display = 'flex';
     }
 
-    round.innerHTML = `Manche ${roundIndex}`;
+    round.innerHTML = `Manche ${roundIndex}/${roundsInfos.length}`;
 
     pseudoInput = document.getElementById('pseudo');
     realPlayerName = pseudoInput.value;
@@ -314,7 +314,7 @@ function FinishRound() {
 
     setTimeout(() => {
         roundIndex++;
-        round.innerHTML = `Manche ${roundIndex}`;
+        round.innerHTML = `Manche ${roundIndex}/${roundsInfos.length}`;
     
         UnselectButton('send');
         UnselectButton('dont-send');
