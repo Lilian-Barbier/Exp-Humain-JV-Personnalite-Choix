@@ -57,12 +57,12 @@ window.onload = () => {
     submitChoiceButton.disabled = true;
 
     document.getElementById('participate').addEventListener('click', ShowInformationQuestion);
-    
+
     startGameButton = document.getElementById('start-game');
     startGameButton.addEventListener('click', StartGame);
 
     document.getElementById('accept').addEventListener('click', ShowFinal);
-    document.getElementById('end-game').addEventListener('click', ShowRevelation);
+    document.getElementById('end-game').addEventListener('click', EndGameClick);
 
     gameContainer = document.getElementById('game-container');
     informationContainer = document.getElementById('information-container');
@@ -79,7 +79,7 @@ window.onload = () => {
     revelationContainer.style.display = 'none';
     finalContainer.style.display = 'none';
 
-    if(localStorage.getItem('gameFinished') === 'true'){
+    if (localStorage.getItem('gameFinished') === 'true') {
         informationContainer.style.display = 'none';
         finalContainer.style.display = 'flex';
     }
@@ -97,29 +97,29 @@ window.onload = () => {
 
     const coopContainer = document.getElementById('coop-radio');
     teamName.forEach((team, index) => {
-          const radioDiv = document.createElement('div');
-          const radioInput = document.createElement('input');
-          radioInput.type = 'radio';
-          radioInput.id = `coop${index + 1}`;
-          radioInput.name = 'cooperative';
-          radioInput.value = `${index + 1}`;
-          radioInput.classList.add('coop-radio-input');
-          
-          if (index === 0) {
-                radioInput.checked = true;
-          }
-          
-          const radioLabel = document.createElement('label');
-          radioLabel.htmlFor = `coop${index + 1}`;
-          radioLabel.innerText = team;
-          
-          radioDiv.appendChild(radioInput);
-          radioDiv.appendChild(radioLabel);
-          coopContainer.appendChild(radioDiv);
-     });
+        const radioDiv = document.createElement('div');
+        const radioInput = document.createElement('input');
+        radioInput.type = 'radio';
+        radioInput.id = `coop${index + 1}`;
+        radioInput.name = 'cooperative';
+        radioInput.value = `${index + 1}`;
+        radioInput.classList.add('coop-radio-input');
+
+        if (index === 0) {
+            radioInput.checked = true;
+        }
+
+        const radioLabel = document.createElement('label');
+        radioLabel.htmlFor = `coop${index + 1}`;
+        radioLabel.innerText = team;
+
+        radioDiv.appendChild(radioInput);
+        radioDiv.appendChild(radioLabel);
+        coopContainer.appendChild(radioDiv);
+    });
 
     UpdateCollectibles();
-    InitQuestions();
+    InitQuestions(questions1);
     UpdateChoice();
 
     choiceA.addEventListener('click', () => ButtonChoice('A'));
@@ -135,7 +135,7 @@ window.onload = () => {
         dontSendCollectible = false
     });
 
-    
+
     document.getElementById('dont-send').addEventListener('click', () => {
         UnselectButton('send');
         SelectButton('dont-send');
@@ -152,22 +152,49 @@ function ShowInformationQuestion() {
     gameContainer.style.display = 'none';
 }
 
-function ShowEndGameQuestion(){
+function ShowEndGameQuestion() {
     informationContainer.style.display = 'none';
     startQuestionContainer.style.display = 'none';
     gameContainer.style.display = 'none';
     endGameQuestionContainer.style.display = 'flex';
 }
 
-function ShowRevelation(){
+let indexQuestionLoaded = 0;
+function EndGameClick() {
+    switch (indexQuestionLoaded) {
+        case 0:
+            collectUserResponses(questions1);
+            InitQuestions(questions2);
+            break;
+        case 1:
+            collectUserResponses(questions2);
+            InitQuestions(questions3);
+            break;
+        case 2:
+            collectUserResponses(questions3);
+            InitQuestions(questions4);
+            break;
+        case 3:
+            collectUserResponses(questions4);
+            InitQuestions(questions5);
+            break;
+        default:
+            collectUserResponses(questions5);
+            ShowRevelation();
+            break;
+    }
+    indexQuestionLoaded++;
+}
+
+
+function ShowRevelation() {
     endGameQuestionContainer.style.display = 'none';
     revelationContainer.style.display = 'flex';
 }
 
-function ShowFinal(){
+function ShowFinal() {
 
     //send data to server
-    const userResponses = collectUserResponses();
     console.log("Réponses de l'utilisateur:", userResponses);
     console.log(choices);
 
@@ -178,19 +205,19 @@ function ShowFinal(){
         },
         body: JSON.stringify({ userResponses, choices, cooperativeName })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Data successfully sent to the server:', data);
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
-    
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Data successfully sent to the server:', data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
     //on enregistre dans le local storage qu'il à finis le jeu
     localStorage.setItem('gameFinished', true);
 
@@ -203,18 +230,18 @@ function StartGame() {
 
     const selectedCoop = document.querySelector('input[name="cooperative"]:checked');
     const selectedCoopLabel = document.querySelector(`label[for="${selectedCoop.id}"]`).innerText;
-    cooperativeName = selectedCoopLabel; 
-    
+    cooperativeName = selectedCoopLabel;
+
 
     //traitement du leaderboards global pour ajouter le nom de la coopérative du joueur
     leaderboards.globalLeaderboard.forEach(team => {
         if (team.currentCoop) {
             team.name = cooperativeName;
         }
-        else{
+        else {
             let name = teamName.shift();
-          
-            if(name == cooperativeName)
+
+            if (name == cooperativeName)
                 name = teamName.shift();
 
             team.name = name;
@@ -280,18 +307,16 @@ function FinishRound() {
         case 'C':
             currentPlayer.score += roundsInfos[roundIndex - 1].C.personalScore;
             currentTeam.score += roundsInfos[roundIndex - 1].C.teamScore;
-        break;
+            break;
         case 'D':
             currentPlayer.score += roundsInfos[roundIndex - 1].D.personalScore;
             currentTeam.score += roundsInfos[roundIndex - 1].D.teamScore;
             break;
     }
 
-    if(sendCollectible)
-    {
+    if (sendCollectible) {
         let collectible = collectibles.filter(collectible => collectible.count > 1);
-        if(collectible !== undefined)
-        {
+        if (collectible !== undefined) {
             let randomIndex = Math.floor(Math.random() * collectible.length);
             collectible[randomIndex].count--;
         }
@@ -303,7 +328,7 @@ function FinishRound() {
         personalScore: currentPlayer.score,
         teamScore: currentTeam.score,
         sendCollectible: sendCollectible,
-        dontSendCollectible : dontSendCollectible
+        dontSendCollectible: dontSendCollectible
     });
 
     sendCollectible = false;
@@ -315,7 +340,7 @@ function FinishRound() {
     setTimeout(() => {
         roundIndex++;
         round.innerHTML = `Manche ${roundIndex}/${roundsInfos.length}`;
-    
+
         UnselectButton('send');
         UnselectButton('dont-send');
 
@@ -323,13 +348,12 @@ function FinishRound() {
         UpdateCollectibles();
         ButtonChoice();
 
-        if(roundsInfos[roundIndex-1].gainCollectible !== undefined) 
-        {
-            collectibles.find(collectible => collectible.id === roundsInfos[roundIndex -1].gainCollectible).count++;
+        if (roundsInfos[roundIndex - 1].gainCollectible !== undefined) {
+            collectibles.find(collectible => collectible.id === roundsInfos[roundIndex - 1].gainCollectible).count++;
             UpdateCollectibles();
             showNotification(`Vous avez reçu un nouveau collectible : 
-                <img src='images/${collectibles[roundsInfos[roundIndex -1].gainCollectible].image}'/>`);
-        } 
+                <img src='images/${collectibles[roundsInfos[roundIndex - 1].gainCollectible].image}'/>`);
+        }
 
         submitChoiceButton.disabled = true;
 
@@ -351,7 +375,7 @@ function UpdateChoice() {
         let finish = document.getElementById('finish-game');
         finish.style.display = 'block';
         finish.addEventListener('click', () => {
-            ShowEndGameQuestion();        
+            ShowEndGameQuestion();
         });
 
         return;
@@ -396,7 +420,7 @@ function UpdateCollectibles() {
         span.innerText = `x${collectible.count}`;
         collectibleDiv.appendChild(span);
 
-        if(collectible.count == 0)
+        if (collectible.count == 0)
             collectibleDiv.classList.add('collectible-disabled');
 
         collectiblesDom.appendChild(collectibleDiv);
@@ -417,23 +441,23 @@ function UpdateLeaderboard() {
     leaderboards.leaderboard.forEach(player => {
 
         const row = document.createElement('tr');
-        
+
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${player.currentPlayer ? realPlayerName : player.name}</td>
             <td>${player.score}</td>
         `;
-        
+
         if (player.currentPlayer === true) {
             row.setAttribute('id', 'current-player');
         }
 
         setTimeout((row) => {
-           row.style.opacity = 1;
+            row.style.opacity = 1;
         }, 100 * index, row);
 
         leaderboardBody.appendChild(row);
-        
+
         index++;
     });
 
@@ -443,18 +467,18 @@ function UpdateLeaderboard() {
 
         const row = document.createElement('tr');
 
-         row.innerHTML = `
+        row.innerHTML = `
             <td>${index}</td> 
             <td>${team.name}</td> 
             <td>${team.score}</td>
         `;
-        
+
         if (team.currentCoop === true) {
             row.setAttribute('id', 'current-coop');
         }
 
         setTimeout((row) => {
-           row.style.opacity = 1;
+            row.style.opacity = 1;
         }, 100 * index, row);
 
         globalLeaderboardBody.appendChild(row);
@@ -463,15 +487,17 @@ function UpdateLeaderboard() {
     });
 }
 
-function InitQuestions(){
+function InitQuestions(questionsToLoad) {
 
     let endGameQuestion = document.getElementById('end-game-question');
 
-    questions.forEach(question => {
-    
+    endGameQuestion.innerHTML = '';
+
+    questionsToLoad.forEach(question => {
+
         const questionId = `question-${question.id}`;
-        
-        if(question.type === "text"){
+
+        if (question.type === "text") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -485,7 +511,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "info"){
+        else if (question.type === "info") {
             const questionDiv = document.createElement('div');
 
             questionDiv.innerHTML = `
@@ -494,7 +520,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "value1"){
+        else if (question.type === "value1") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -512,7 +538,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "value2"){
+        else if (question.type === "value2") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -532,7 +558,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "value3"){
+        else if (question.type === "value3") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -554,7 +580,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "genre"){
+        else if (question.type === "genre") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -570,7 +596,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "age"){
+        else if (question.type === "age") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -584,7 +610,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-        else if(question.type === "yn"){
+        else if (question.type === "yn") {
             const questionDiv = document.createElement('div');
             questionDiv.className = 'question';
             questionDiv.dataset.id = questionId;
@@ -599,7 +625,7 @@ function InitQuestions(){
 
             endGameQuestion.appendChild(questionDiv);
         }
-    
+
     });
 
     // Pour les questions à choix multiples (radio buttons)
@@ -607,7 +633,7 @@ function InitQuestions(){
     radioInputs.forEach(radio => {
         radio.addEventListener('change', updateEndGameButtonState);
     });
-    
+
     // Pour les questions textuelles
     const textInputs = document.querySelectorAll('#end-game-question input[type="text"]');
     textInputs.forEach(input => {
@@ -626,52 +652,73 @@ function InitQuestions(){
 // Fonction pour mettre à jour l'état du bouton end-game
 function updateEndGameButtonState() {
     const endGameButton = document.getElementById('end-game');
-    endGameButton.disabled = !areAllQuestionsAnswered();
+
+    let questionsToCheck = [];
+    switch (indexQuestionLoaded) {
+        case 0:
+            questionsToCheck = questions1;
+            break;
+        case 1:
+            questionsToCheck = questions2;
+            break;
+        case 2:
+            questionsToCheck = questions3;
+            break;
+        case 3:
+            questionsToCheck = questions4;
+            break;
+        case 4:
+            questionsToCheck = questions5;
+            break;
+    }
+
+    endGameButton.disabled = !areAllQuestionsAnswered(questionsToCheck);
 }
 
 // Fonction pour vérifier si toutes les questions ont été répondues
-function areAllQuestionsAnswered() {
+function areAllQuestionsAnswered(questionsToCheck) {
     let allAnswered = true;
-    
-    questions.forEach((question) => {
+
+    questionsToCheck.forEach((question) => {
         const questionId = `question-${question.id}`;
-        
+
         if (question.type === "age") {
             const textInput = document.querySelector(`input[name="${questionId}"]`);
             if (!textInput || textInput.value.trim() === "") {
                 allAnswered = false;
             }
         }
-        else if (question.type === "value1" ||question.type === "value2" || question.type === "value3" || question.type === "genre" || question.type === "yn") {
+        else if (question.type === "value1" || question.type === "value2" || question.type === "value3" || question.type === "genre" || question.type === "yn") {
             const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
             if (!selectedRadio) {
                 allAnswered = false;
             }
         }
     });
-    
+
     return allAnswered;
 }
 
-function collectUserResponses() {
-    const responses = [];
-    
-    questions.forEach((question) => {
+const userResponses = [];
+
+function collectUserResponses(questionsToGet) {
+
+    questionsToGet.forEach((question) => {
         const questionId = `question-${question.id}`;
         let userResponse;
-        
-        if(question.type != "info"){
-            
+
+        if (question.type != "info") {
+
             if (question.type === "text" || question.type === "age") {
                 const textInput = document.querySelector(`input[name="${questionId}"]`);
                 userResponse = textInput ? textInput.value : "";
-            } 
+            }
             else {
                 const selectedRadio = document.querySelector(`input[name="${questionId}"]:checked`);
                 userResponse = selectedRadio ? parseInt(selectedRadio.value) : null;
             }
-            
-            responses.push({
+
+            userResponses.push({
                 question: question.question,
                 type: question.type,
                 response: userResponse,
@@ -680,6 +727,4 @@ function collectUserResponses() {
         }
 
     });
-    
-    return responses;
 }
