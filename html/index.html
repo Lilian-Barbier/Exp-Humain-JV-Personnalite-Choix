@@ -19,6 +19,8 @@
         href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet"> -->
 
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=stadia_controller0&icon_names=keyboard_arrow_up" />
 </head>
 
 <body>
@@ -27,18 +29,18 @@
         <div class="block">
 
             <div class="research-info">
-                <h1>L’humain et le jeu-vidéo : la personnalité et le choix</h1>
-                <h2>Odile Camus, Kylian Duchemin, Tanya Bersoult</h2>
-                <p>Laboratoire CRFDP - Romain Le Guével</p>
+                <h1 class="nowrap">L’humain et le jeu-vidéo :<br> la personnalité et le choix</h1>
+                <h3 class="center">Odile Camus, Kylian Duchemin, Tanya Bersoult</h3>
+                <p class="center">Laboratoire CRFDP - Romain Le Guével</p>
 
-                <h3>Objectifs</h3>
+                <h2>Objectifs</h2>
                 <p>
                     Les objectifs de ce projet de recherche sont d’observer l’influence de traits de personnalité sur la
                     prise de décision du jeu en ligne.
                     C’est pourquoi nous sollicitons votre participation à cette étude.
                 </p>
 
-                <h3>Tâche</h3>
+                <h2>Tâche</h2>
                 <p>
                     Votre participation à ce projet de recherche est en 2 étapes. Une première où vous découvrirez un
                     jeu-vidéo, pour jouer vous serez amené à prendre une série de décisions.
@@ -48,7 +50,7 @@
                     un cadre calme et isolé.
                 </p>
 
-                <h3>Confidentialité</h3>
+                <h2>Confidentialité</h2>
                 <p>
                     Les données recueillies par cette étude sont anonymes et confidentielles (conformément au Règlement
                     Général sur la Protection des Données du 24 avril 2016).
@@ -60,7 +62,7 @@
                     l’étudiant. Toutes ces personnes s’engagent à la confidentialité.
                 </p>
 
-                <h3>Participation volontaire</h3>
+                <h2>Participation volontaire</h2>
                 <p>
                     Votre participation à cette étude se fait sur base de volontariat. Vous êtes entièrement libre de
                     participer ou non, de refuser de répondre à certaines questions ou de vous retirer à tout moment
@@ -70,13 +72,13 @@
                     utilisées par les chercheurs.
                 </p>
 
-                <h3>Remerciement</h3>
+                <h2>Remerciement</h2>
                 <p>
                     Votre collaboration nous est précieuse. Nous vous remercions sincèrement de votre intérêt pour cette
                     étude et de votre participation.
                 </p>
 
-                <h3>Responsable de la recherche</h3>
+                <h2>Responsable de la recherche</h2>
                 <p>
                     Pour obtenir de plus amples renseignements ou pour toute question concernant ce projet de recherche,
                     vous pouvez communiquer avec :
@@ -90,7 +92,7 @@
                             href="mailto:dpo@univ-rouen.fr">dpo@univ-rouen.fr</a></span>
                 </p>
 
-                <h3>Identité et coordonnées du responsable du traitement</h3>
+                <h2>Identité et coordonnées du responsable du traitement</h2>
                 <p>
                     Le président de l’Université de Rouen Normandie, 1 rue Thomas Becket, 76130 Mont-Saint-Aignan
                 </p>
@@ -114,34 +116,44 @@
                 </p>
             </div>
 
-            <button id="participate">Suivant <img src="images/icons/controller.png" /></button>
+            <button id="participate">Suivant
+                <span class="material-symbols-outlined">
+                    stadia_controller
+                </span>
+            </button>
         </div>
     </div>
 
 
     <div id="start-question-container" class="container">
         <div class="block">
-            <h1> Choissisez un pseudo et une coopérative de départ </h1>
+            <h2> Choissisez un pseudo et une coopérative de départ </h2>
 
             <div>
-                <input type="text" id="pseudo" placeholder="Pseudo">
+                <input type="text" id="pseudo" placeholder="Pseudo" maxlength="20">
             </div>
 
             <div id="coop-radio"></div>
 
-            <button id="start-game">Lancer les manches <img src="images/icons/controller.png" /></button>
+            <button id="start-game">Lancer les manches
+                <span class="material-symbols-outlined">
+                    stadia_controller
+                </span>
+            </button>
 
         </div>
     </div>
 
     <div id="game-container" class="container">
 
-        <h1 id="round">Manche X</h1>
+        <div id="round">
+            <p>Manche X</p>
+        </div>
 
         <div id="game">
 
             <div id="round-choice">
-                <h2 id="round-title">Choisissez votre action</h2>
+                <div id="round-title">Choisissez votre action</div>
 
                 <div id="choice-A" class="btn-wrapper">
                     <p class="btn-text">¡Tenemos que pagar la cuenta!</p>
@@ -160,7 +172,7 @@
                 </div>
 
                 <div id="collectibles">
-                    <h3> Vos collectibles </h3>
+                    <h2> Vos collectibles </h2>
 
                     <div id="collectible-container">
                     </div>
@@ -179,7 +191,11 @@
             <div id="leaderboards-background-hidden"></div>
             <div id="leaderboards-hidden">
 
-                <h1 id="leaderboard-button">Classements <img src="images/icons/arrow.png" /></h1>
+                <div id="leaderboard-button">Classements
+                    <span class="material-symbols-outlined">
+                        keyboard_arrow_up
+                    </span>
+                </div>
 
                 <div id="leaderboards-scroll">
                     <div id="leaderboard" class="leaderboard">
@@ -206,8 +222,13 @@
     </div>
 
     <div id="end-game-question-container" class="container">
-        <div class="block">
-            <h1> Quelques questions : </h1>
+        <div id="question-index">
+            <p>Questions X</p>
+        </div>
+
+        <div class="block" id="end-game-question-block">
+
+
             <div id="end-game-question">
             </div>
             <button id="end-game">Suivant</button>
@@ -225,7 +246,7 @@
                 corrigés :
             </p>
 
-            <h3>Objectifs</h3>
+            <h2>Objectifs</h2>
             <p>
                 Les objectifs de ce projet de recherche sont en réalité de mesurer l’influence des traits de
                 personnalité narcissiques et/ou autoritaires sur les comportements pro-sociaux (c'est-à-dire les actes
@@ -259,6 +280,7 @@
     <div id="final-container" class="container">
         <div class="block">
             <h1>Merci d'avoir participé !</h1>
+            <p>Nous vous remercions sincèrement d'avoir pris le temps de participer à cette étude.</p>
         </div>
     </div>
 

@@ -2,13 +2,13 @@
 #collectibles {
     text-align: center;
 
-    color: #B29B5F;
+    color: var(--text-color);
     padding: 15px;
     background-color: #f8f8f8;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    max-width: 400px;  
+    max-width: 400px;
 
     margin: 0 auto;
     margin-top: 20px;
@@ -16,8 +16,8 @@
     & button {
         margin-top: 0.5em;
     }
-    
-    h3 {
+
+    h2 {
         margin: 2px;
     }
 }
@@ -26,6 +26,12 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
+}
+
+@media (max-width: 400px) {
+    #collectible-container {
+        gap: 0px;
+    }
 }
 
 .collectible-item {

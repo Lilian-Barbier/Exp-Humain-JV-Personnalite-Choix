@@ -84,7 +84,7 @@ window.onload = () => {
         finalContainer.style.display = 'flex';
     }
 
-    round.innerHTML = `Manche ${roundIndex}/${roundsInfos.length}`;
+    round.innerHTML = `<p>Manche ${roundIndex}/${roundsInfos.length}</p>`;
 
     pseudoInput = document.getElementById('pseudo');
     realPlayerName = pseudoInput.value;
@@ -120,6 +120,7 @@ window.onload = () => {
 
     UpdateCollectibles();
     InitQuestions(questions1);
+    document.getElementById('question-index').innerHTML = '<p>Question 1/5</p>';
     UpdateChoice();
 
     choiceA.addEventListener('click', () => ButtonChoice('A'));
@@ -144,7 +145,16 @@ window.onload = () => {
         dontSendCollectible = true;
     });
 
+    updateZoomFactor();
 }
+
+window.addEventListener('resize', updateZoomFactor);
+
+function updateZoomFactor() {
+    const zoomFactor = window.devicePixelRatio || 1;
+    document.documentElement.style.setProperty('--zoom-factor', zoomFactor);
+}
+
 
 function ShowInformationQuestion() {
     informationContainer.style.display = 'none';
@@ -165,18 +175,22 @@ function EndGameClick() {
         case 0:
             collectUserResponses(questions1);
             InitQuestions(questions2);
+            document.getElementById('question-index').innerHTML = '<p>Question 2/5</p>';
             break;
         case 1:
             collectUserResponses(questions2);
             InitQuestions(questions3);
+            document.getElementById('question-index').innerHTML = '<p>Question 3/5</p>';
             break;
         case 2:
             collectUserResponses(questions3);
             InitQuestions(questions4);
+            document.getElementById('question-index').innerHTML = '<p>Question 4/5</p>';
             break;
         case 3:
             collectUserResponses(questions4);
             InitQuestions(questions5);
+            document.getElementById('question-index').innerHTML = '<p>Question 5/5</p>';
             break;
         default:
             collectUserResponses(questions5);
@@ -256,23 +270,23 @@ function StartGame() {
 }
 
 function SelectChoice(choice) {
-    document.querySelector(`#choice-${choice}`).style.backgroundColor = "#927A43";
-    document.querySelector(`#choice-${choice}`).style.color = "#ffffff";
+    document.querySelector(`#choice-${choice}`).style.backgroundColor = "var(--bg-button-selected-color)";
+    document.querySelector(`#choice-${choice}`).style.color = "var(--text-color-button-selected)";
 }
 
 function UnselectChoice(choice) {
-    document.querySelector(`#choice-${choice}`).style.backgroundColor = "#ffffff";
-    document.querySelector(`#choice-${choice}`).style.color = "#B29B5F";
+    document.querySelector(`#choice-${choice}`).style.backgroundColor = "var(--bg-button-color)";
+    document.querySelector(`#choice-${choice}`).style.color = "var(--text-color-button)";
 }
 
 function SelectButton(selector) {
-    document.querySelector(`#${selector}`).style.backgroundColor = "#927A43";
-    document.querySelector(`#${selector}`).style.color = "#ffffff";
+    document.querySelector(`#${selector}`).style.backgroundColor = "var(--bg-button-selected-color)";
+    document.querySelector(`#${selector}`).style.color = "var(--text-color-button-selected)";
 }
 
 function UnselectButton(selector) {
-    document.querySelector(`#${selector}`).style.backgroundColor = "#ffffff";
-    document.querySelector(`#${selector}`).style.color = "#B29B5F";
+    document.querySelector(`#${selector}`).style.backgroundColor = "var(--bg-button-color)";
+    document.querySelector(`#${selector}`).style.color = "var(--text-color-button)";
 }
 
 function ButtonChoice(choiceCode) {
@@ -339,7 +353,7 @@ function FinishRound() {
 
     setTimeout(() => {
         roundIndex++;
-        round.innerHTML = `Manche ${roundIndex}/${roundsInfos.length}`;
+        round.innerHTML = `<p>Manche ${roundIndex}/${roundsInfos.length}</p>`;
 
         UnselectButton('send');
         UnselectButton('dont-send');
@@ -443,7 +457,7 @@ function UpdateLeaderboard() {
         const row = document.createElement('tr');
 
         row.innerHTML = `
-            <td>${index + 1}</td>
+            <td>${index}</td>
             <td>${player.currentPlayer ? realPlayerName : player.name}</td>
             <td>${player.score}</td>
         `;
@@ -647,6 +661,9 @@ function InitQuestions(questionsToLoad) {
     });
 
     updateEndGameButtonState();
+
+    // Scroll to the top of the page when initializing questions
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Fonction pour mettre à jour l'état du bouton end-game

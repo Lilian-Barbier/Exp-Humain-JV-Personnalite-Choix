@@ -1,71 +1,86 @@
-html {
-    height: 100%;
-}
-
 body {
-    background: #B89957;
-    color: #ffffff;
-    font-size: 16px;
-
-    height: 100%;
-
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 20px;
     font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    overflow: hidden;
+
+    background-color: #FFF1E8;
+
+    --bg-button-selected-color: #FFB687;
+    --text-color-button-selected: #272344;
+
+    --bg-button-color: #ffffff;
+    --text-color-button: #e48f59;
+
+    --bg-light-color: #FFEACB;
+    --text-color: #272344;
+
+    --bg-background-dark-color: #FFB687;
+
 }
 
-.container{
-    display: flex;
+#start-question-container,
+#final-container {
     justify-content: center;
-    align-items: center;
-    height: 100vh;  flex-direction: column;
 }
 
-h1, h2, h3 {
+.nowrap {
+    white-space: nowrap;
+}
+
+
+h1 {
+    font-size: 60px;
+    line-height: 1.2em;
     text-align: center;
 }
 
-
-.block {
-    width: 100%;
-}
-@media (min-width: 700px) {
-    .block {
-        width: 70%;
-    }
+h2 {
+    font-size: 30px;
+    line-height: 1.3em;
+    font-weight: bolder;
 }
 
-
-button {
-    background-color: #ffffff;
-    color: #B29B5F;
-    width: 300px;
-    height: 40px;
-    border-radius: 30px;
-    border: none;
+#game-container,
+#end-game-question-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    flex-direction: column;
+    height: 90vh;
+    margin-bottom: 0;
+    width: 100%;
+}
 
+#end-game-question-container {
+    margin-top: 30px;
+    height: auto;
+    margin-bottom: 60px;
+}
+
+#game,
+#end-game-question-block {
+    width: 100%;
+}
+
+#leaderboard-button {
+    font-size: 50px;
+    transform: scale(calc(1 / var(--zoom-factor)));
+
+    line-height: 1.2em;
+    text-align: center;
     cursor: pointer;
+    white-space: nowrap;
 
-    & img{
-        width: 2em;
-        margin-left: 10%;
+    & span {
+        width: 1em;
+        margin-bottom: 4px;
     }
 }
 
-button:disabled {
-    color: #afafaf;
-    background-color: #f0f0f0;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-
-#leaderboards, #leaderboards-hidden {
-    position: absolute;
+#leaderboards,
+#leaderboards-hidden {
+    position: fixed;
     top: 15%;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -75,82 +90,28 @@ button:disabled {
     height: 100%;
 
     background: white;
-    color: #B89956;
+    color: var(--text-color);
     transition: top 0.5s;
 
     text-align: center;
 
-    h1 img {
+    overflow: hidden;
+    /* Ajouté pour cacher le contenu qui dépasse */
+
+    #leaderboard-button span {
+        font-size: 50px;
         transform: rotate(180deg);
         transition: transform 0.5s;
     }
 }
 
 #leaderboards-hidden {
-    top: 92%;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    top: calc(100vh - 55px);
 
-    h1 img {
+    #leaderboard-button span {
         transform: rotate(0deg);
     }
-}
-
-#game-container{
-    height: 90%;
-    overflow: auto;
-}
-
-#round-title {
-    text-align: center;
-    font-size: 1em;
-    text-align: initial;
-}
-@media (min-width: 700px) {
-    #round-title {
-        width: 70%;
-        margin-right: auto;
-        margin-left: auto;
-    }
-}
-
-#round {
-    text-align: center;
-    margin: 0;
-}
-
-.btn-wrapper {
-    background-color: #ffffff;
-    color: #B29B5F;
-    max-width: 400px;
-    height: 45px;
-    border-radius: 30px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    transition: background-color 0.3s, color 0.3s;    
-
-    padding: 10px;
-    margin: 0 auto;
-
-    cursor: pointer;
-    user-select: none;
-    margin-top: 0.5em;
-
-    text-align: center;
-}
-
-#leaderboard-button{
-    cursor: pointer;
-
-    & img{
-        width: 1em;
-        margin-bottom: 4px;
-    }
-}
-
-#submit-choice{
-    margin-top: 1em;
 }
 
 .leaderboard {
@@ -165,7 +126,7 @@ button:disabled {
 
     & hr {
         width: 75%;
-        color: #B89957;
+        color: var(--bg-background-dark-color);
     }
 
     & table {
@@ -174,13 +135,73 @@ button:disabled {
         text-align: center;
         border-collapse: collapse;
 
-        & #current-player, #current-coop{
+        & #current-player,
+        #current-coop {
             background: #aae6ab;
             color: black;
         }
     }
 }
- 
+
+#round,
+#question-index {
+
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    position: fixed;
+
+    background: var(--bg-background-dark-color);
+    color: white;
+    border-radius: 20px;
+    top: 0;
+    left: auto;
+    height: 85px;
+    width: 50%;
+    min-width: 250px;
+
+    transform: translate(0, -50px);
+
+    p {
+        padding-top: 23px;
+        padding-left: 0;
+        font-size: 27px;
+        text-align: center;
+    }
+}
+
+#submit-choice {
+    margin-top: 1em;
+}
+
+.center {
+    text-align: center;
+}
+
+#round-title {
+    margin-bottom: 30px;
+}
+
+
+@media (max-width: 767px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-height: 850px) {
+
+    #game-container {
+        margin-top: 30px;
+        height: auto;
+        margin-bottom: 60px;
+    }
+}
+
 #leaderboards-background-hidden {
     position: fixed;
     top: 0;
@@ -189,13 +210,7 @@ button:disabled {
     height: 100%;
     background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(1px);
-} 
-
-#leaderboards-scroll {
-    overflow: auto;
 }
-
-
 
 tr {
     opacity: 0;
@@ -204,181 +219,4 @@ tr {
 
 tr.show {
     opacity: 1;
-}
-
-#information-container {
-    overflow: hidden;
-}
-
-#information-container .block{
-
-    overflow: auto;
-    margin-bottom: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 80px;
-
-    h1{    
-        font-size: 1.6rem;
-    }
-    h2{
-        font-size: 1.2rem;
-    }
-    h3{
-        font-size: 1em;
-    }
-
-    & p:first-of-type  {
-        text-align: center;
-    }
-}
-
-.nowrap {
-    white-space: nowrap;
-}
-
-/* Styles spécifiques pour les très petits écrans (comme iPhone 5) */
-@media (max-width: 370px) {
-    body {
-        font-size: 12px; /* Réduction de la taille de base de la police */
-    }
-
-    .container {
-        min-height: 100vh;
-        padding: 10px 5px;
-    }
-
-    h1 {
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
-    }
-
-    h2 {
-        font-size: 1rem;
-        margin: 0.4rem 0;
-    }
-
-    h3 {
-        font-size: 0.9rem;
-        margin: 0.3rem 0;
-    }
-
-    p {
-        margin: 0.5rem 0;
-        line-height: 1.3;
-    }
-
-    button {
-        width: 220px;
-        height: 32px;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    button img {
-        width: 1.5em;
-    }
-
-    .leaderboard h2 {
-        font-size: 0.9rem;
-        margin: 0.3rem 0;
-    }
-
-    .leaderboard table {
-        width: 90%;
-        font-size: 0.8rem;
-    }
-    
-    .leaderboard td, .leaderboard th {
-        padding: 2px 4px;
-    }
-    
-    #leaderboard-button {
-        font-size: 1rem;
-        margin: 0.3rem 0;
-    }
-    
-    #leaderboard-button img {
-        width: 0.8em;
-    }
-
-    /* Ajustements pour les blocs de jeu */
-    .block {
-        width: 95%;
-        padding: 10px 5px;
-    }
-    
-    #information-container .block {
-        overflow: auto;
-        padding-bottom: 40px;
-    }
-
-    /* Ajustements pour les boutons dans le jeu */
-    .btn-wrapper {
-        height: 35px;
-        max-width: 280px;
-        margin-top: 0.3em;
-        font-size: 0.9rem;
-    }
-    
-    #submit-choice {
-        margin-top: 0.5em;
-    }
-    
-    /* Ajustements pour le round */
-    #round-title {
-        margin-bottom: 0.2em;
-        font-size: 0.9em;
-    }
-    
-    #round {
-        margin: 0;
-        font-size: 1.1rem;
-    }
-    
-    /* Réduire l'espacement dans le conteneur de jeu */
-    #game-container {
-        height: 85%;
-        padding: 5px;
-        overflow: auto;
-    }
-    
-    /* Optimisations pour les éléments de formulaire */
-    input[type="text"], 
-    input[type="radio"] + label {
-        font-size: 0.9rem;
-    }
-    
-    /* Espacement réduit pour les questions */
-    .question {
-        margin-bottom: 5px;
-        padding: 5px;
-
-        div {
-            gap: 0px !important;
-        }
-        
-    }
-    
-    .question p {
-        margin: 2px 0;
-    }
-    
-    /* Réduire la marge pour les collectibles */
-    #collectibles {
-        gap: 5px;
-        margin-top: 10px;
-        padding: 8px;
-    }
-    
-    .collectible-item {
-        padding: 5px;
-    }
-    
-    .collectible-item img {
-        height: 1em;
-        margin-right: 3px;
-    }
-    
 }
